@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import Product from "../Components/Product";
 import CommerceContext from "../Context/CommerceContext";
 
 
@@ -9,7 +10,7 @@ const HomePage = () => {
     console.log(state)
     return(
         state && state.map( element => (
-            <h4>{element.name}</h4>
+            <Product></Product>
         ))
     )
 }
