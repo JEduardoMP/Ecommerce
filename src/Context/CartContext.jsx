@@ -5,27 +5,43 @@ const CartContext = createContext();
 const initialState = {
     user: {},
     totalPrice: 0,
-    cart: []
+    cart: [],
 }
 
 const reducer = (state, action) => {
     switch(action.type) {
+        case 'ADD_PRODUCT':
+            // console.log(action.payload)
+            if(action.payload.id === state.cart.id){
+                return{
+                    ...state,
+                    totalPrice: state.totalPrice + action.payload.price,
+                    cart: [...state.cart],
+                }
+            }else{
+                return{
+                    ...state,
+                    totalPrice: state.totalPrice + action.payload.price,
+                    cart: [...state.cart, action.payload],
+                }
+            }
         default:
             return state;
     }
 }
 
-export const CartContextProvider = ({children}) => {
+const CartContextProvider = ({children}) => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const data = {state, dispatch}
 
     return(
-    <CartContextProvider.provider value={data}>
+    <CartContext.Provider value={data}>
         {children}
-    </CartContextProvider.provider>
+    </CartContext.Provider>
     )
 }
 
 export default CartContext;
+export {CartContextProvider};

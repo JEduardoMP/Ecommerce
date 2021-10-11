@@ -1,5 +1,4 @@
-import { createContext, useReducer } from "react" 
-import useFetchData from "../hooks/useFetchData";
+import { createContext, useEffect, useReducer } from "react" 
 
 const CommerceContext = createContext();
 
@@ -12,21 +11,36 @@ const reducer = (state, action) => {
         case 'PRODUCT':
             return{
                 ...state,
-                product: [state.product, action.payload]
-            }
+                product: [...state.product, action.payload]
+            };
+        // case 'MODIFY_STOCK':
+            // return{
+            //     ...state,
+            //     product: state.product.id === action.payload.id ? state.product.stock-- : 
+            // }
         default:
             return state;
     }
 }
 
-export const CommerceContextProvider = ({children}) => {
+const CommerceContextProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const data = {state, dispatch};
+    useEffect(() => {
+        const handleInfo = async() => {
+            try{
+                const response = await fetch('http://localhost:1337/products');
+                const result = await response.json();
+                dispatch({type: 'PRODUCT', payload: result})
+            }catch(error){
+                console.log(error);
+            }
+        };
+        handleInfo();
+    }, [])
 
-    const products = useFetchData('http://localhost:1337/products');
-    dispatch({type: 'PRODUCT', payload: products})
+    const data = {state, dispatch};
 
     return(
         <CommerceContext.Provider value={data}>
@@ -36,3 +50,4 @@ export const CommerceContextProvider = ({children}) => {
 }
 
 export default CommerceContext;
+export {CommerceContextProvider}

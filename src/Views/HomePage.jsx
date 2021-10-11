@@ -6,11 +6,13 @@ import CommerceContext from "../Context/CommerceContext";
 const HomePage = () => {
 
     const { state } = useContext(CommerceContext);
+    // console.log(state.product)
 
-    console.log(state)
     return(
-        state && state.map( element => (
-            <Product></Product>
+        state && state.product && state.product.map(product => (
+            product.map( element => (
+                <Product value={element} key={element.id}/>
+            ))
         ))
     )
 }

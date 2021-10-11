@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+body a{
+  text-decoration: none;
+  color: #f6f6f6;
+}
+body a:hover{
+  color: gold;
+}
+
