@@ -44,4 +44,7 @@ body a{
 body a:hover{
   color: gold;
 }
+tr td img{
+  height: 5rem;
+}
 

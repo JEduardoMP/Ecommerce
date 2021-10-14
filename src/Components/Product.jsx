@@ -24,7 +24,7 @@ const Product = value => {
                                 Stock: {value.value.stock}
                                 </Card.Text>
                                 <Button variant="primary">Wish list</Button>
-                                <Button variant="primary" onClick={() => dispatchCart({type: 'ADD_PRODUCT', payload: value.value}) 
+                                <Button variant="primary" onClick={() => dispatchCart({type: 'ADD_PRODUCT', payload: { values: value.value, qty: 1}}) 
                                 && dispatchCommerce({type: 'MODIFY_STOCK', payload: value.value})}>
                                 Add to cart: ${value.value.price}</Button>
                         </Card.Body>

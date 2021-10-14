@@ -11,17 +11,17 @@ const initialState = {
 const reducer = (state, action) => {
     switch(action.type) {
         case 'ADD_PRODUCT':
-            // console.log(action.payload)
-            if(action.payload.id === state.cart.id){
-                return{
+            console.log(action.payload)
+            if(state.cart.some(product => product.values.id === action.payload.values.id)){
+                return {
                     ...state,
-                    totalPrice: state.totalPrice + action.payload.price,
-                    cart: [...state.cart],
+                    totalPrice: state.totalPrice + action.payload.values.price,
+                    cart: state.cart.filter(element => element.values.id === action.payload.values.id ? element.qty = element.qty + 1 : 'error')
                 }
             }else{
                 return{
                     ...state,
-                    totalPrice: state.totalPrice + action.payload.price,
+                    totalPrice: state.totalPrice + action.payload.values.price,
                     cart: [...state.cart, action.payload],
                 }
             }

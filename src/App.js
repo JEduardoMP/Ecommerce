@@ -29,7 +29,7 @@ function App() {
             <Route exact path="/" component={HomePage}/>
             <Route exact path="/shopping-cart" component={ShoppingCart}/>
             <Route exact path="/login" component={Login}/>
-            <Route path="*" component={<h4>Error 404</h4>}/>
+            <Route path="*" component={(<h4>Error 404</h4>)}/>
           </Switch>
         </Router>
       </CartContextProvider>
