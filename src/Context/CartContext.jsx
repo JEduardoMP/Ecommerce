@@ -11,7 +11,7 @@ const initialState = {
 const reducer = (state, action) => {
     switch(action.type) {
         case 'ADD_PRODUCT':
-            console.log(action.payload)
+            // console.log(action.payload)
             if(state.cart.some(product => product.values.id === action.payload.values.id)){
                 return {
                     ...state,
@@ -24,6 +24,27 @@ const reducer = (state, action) => {
                     totalPrice: state.totalPrice + action.payload.values.price,
                     cart: [...state.cart, action.payload],
                 }
+            }
+        case 'SUBTRACTION':
+            if(state.cart.some(element => element.values.id === action.payload.values.id)){
+                return{
+                    ...state,
+                    totalPrice: state.totalPrice - action.payload.values.price,
+                    cart: state.cart.filter(element => element.values.id === action.payload.values.id ? element.qty -= 1 : 'error' )
+                }
+            }else if (state.cart.some(element => element.qty === 0)){
+                return{
+                    ...state,
+                    totalPrice: state.totalPrice - action.payload.values.price,
+                    cart: state.cart.filter(element => element.values.id !== action.payload.values.id)
+                }
+            }
+            break;
+        case 'DELETE':
+            return{
+                ...state,
+                totalPrice: state.totalPrice - action.payload.values.price * action.payload.qty,
+                cart: state.cart.filter( product => product.values.id !== action.payload.values.id)
             }
         default:
             return state;

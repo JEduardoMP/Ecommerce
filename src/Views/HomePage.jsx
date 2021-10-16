@@ -6,15 +6,16 @@ import CommerceContext from "../Context/CommerceContext";
 const HomePage = () => {
 
     const { state } = useContext(CommerceContext);
-    // console.log(state.product)
-
+    // console.log(state)
+    // const man = useMemo(() => state)
+    
     return(
-        state && state.product && state.product.map(product => (
-            product.map( element => (
-                <Product value={element} key={element.id}/>
-            ))
-        ))
+        state && state.product.map(product => (
+                <Product value={product} key={product.id}/>
+            )
+        )
     )
+    
 }
 
 export default HomePage;

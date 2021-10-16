@@ -9,12 +9,13 @@ const Header = () => {
 
     const {state} = useContext(CartContext);
     const [q, setQ] =useState(0)
+    console.log(state)
 
     useEffect(() => {
         let sum = 0;
         state.cart.map(element => sum+=element.qty);
         setQ(sum)
-    }, [state.cart])
+    }, [state])
 
     return(
     <Navbar bg="dark" variant="dark">
